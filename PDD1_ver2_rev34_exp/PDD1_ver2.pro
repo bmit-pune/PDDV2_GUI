@@ -22,15 +22,18 @@ SOURCES += main.cpp\
     set_index.cpp \
     update_data.cpp \
     read_battery_soc.cpp \
-    mode_select.cpp
+    mode_select.cpp \
+    ThresholdTime.cpp
 
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
     global_indexes.h \
     all_headers.h \
-    read_batt.h
+    read_batt.h \
+    ThresholdTime.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    ThresholdTime.ui
 
 OTHER_FILES += \

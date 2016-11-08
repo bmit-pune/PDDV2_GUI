@@ -36,10 +36,27 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
     }
 
 
+    if((e->key()==Qt::Key_L) && (e->isAutoRepeat()==false))         //LOC_MON
+    {
+        dataTimer.stop();
+        #ifdef DEBUG
+            qDebug()<<"Location Monitoring Mode activated\n";
+        #endif
+        dialog.Set_Threshold=0;
+        dialog.Set_Time=0;
+        dialog.show();
+        set_mode(LOC_MON);
+
+
+    }
+
+
+
     if((e->key()==Qt::Key_I) && (e->isAutoRepeat()==false))         //RANGE INCREASE
     {
         RANGE_INDEX++;
         set_range();
+        qDebug()<<"key pressed in main\n\n";
     }
     if((e->key()==Qt::Key_D) && (e->isAutoRepeat()==false))         //RANGE DECREASE
     {
@@ -76,6 +93,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
         oss << Present_Zoom_Level;
         std::string temp= "zoomlevel"+oss.str()+"time"+QTime::currentTime().toString().replace(":","_",Qt::CaseInsensitive).toStdString();
         take_screenshot("/opt/pdd/", temp );
+
     }
     if((e->key()==Qt::Key_P) && (e->isAutoRepeat()==false))         //PAUSE
     {

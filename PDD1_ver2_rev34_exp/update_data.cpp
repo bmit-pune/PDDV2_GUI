@@ -105,19 +105,7 @@ void MainWindow::update_data()
         }
         //Data transfer ends here
 
-        printf("Total samples received %d\n",i*16);
 
-
-
-        if(mode==SPECTRUM) {
-        #ifdef DEBUG
-        for( i=0;i<NO_OF_PLOTTING_VALS/2;i++)
-        {
-            printf("<->%d::%f<->",i,arr_float[i]);
-        }
-        cout<<"update_data_end"<<endl;
-        #endif
-        }
  #endif
 
 
@@ -138,6 +126,15 @@ void MainWindow::update_data()
          }
 
 #endif
+
+
+
+    if(mode==LOC_MON)
+    {
+        for(int i=0;i<NO_OF_FFT_VALS;i++){
+            arr_float_mV[i]=sample_to_millivolt(array[i]);
+        }
+    }
 
 
 /*-------------------------------------------------------------*/
@@ -206,3 +203,9 @@ inline void MainWindow::copy_raw(uint32_t *src_addr,char *dest_addr){
 //D0-D7 double word 64bit*7=64 bytes
 }
 
+
+inline float MainWindow::sample_to_millivolt(int sample) {
+
+return (float) (ADC_REF_VOLTAGE/pow(2,ADC_BIT))*sample;
+
+}

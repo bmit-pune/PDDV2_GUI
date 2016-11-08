@@ -1,5 +1,6 @@
 #ifndef READ_BATT_H
 #define READ_BATT_H
+
 #include <QMainWindow>
 #include <errno.h>
 #include <string.h>

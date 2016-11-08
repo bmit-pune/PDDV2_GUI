@@ -1,9 +1,10 @@
-#include"all_headers.h"
+﻿#include"all_headers.h"
 #include"global_indexes.h"
 
 char array[NO_OF_RAW_VALS];
 float arr_float[NO_OF_FFT_VALS];
 float arr_float_noise[NO_OF_FFT_VALS];
+float arr_float_mV[NO_OF_RAW_VALS];
 
 using namespace std;
 
@@ -21,7 +22,8 @@ MainWindow::MainWindow(QWidget *parent) :
                         "selection-background-color: blue;");
 
 
-     setupSimpleDemo(ui->customPlot);
+     setupSimpleDemo(ui->customPlot,ui->customPlot_avg,ui->customPlot_max);
+
 
      /*ui->customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
                                        QCP::iSelectLegend | QCP::iSelectPlottables);*/
@@ -37,7 +39,7 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::setupSimpleDemo(QCustomPlot *customPlot)
+void MainWindow::setupSimpleDemo(QCustomPlot *customPlot,QCustomPlot *customPlot_avg,QCustomPlot *customPlot_max)
 
 {
     cout<<"Setup_simple_demo_started"<<endl;
@@ -88,6 +90,53 @@ void MainWindow::setupSimpleDemo(QCustomPlot *customPlot)
     ui->batteryBar->setMaximum(0);//Indicate busy before calibration
     ui->batteryBar->setMinimum(0);
 
+    /*----------------------LOC_MON------------------------*/
+    customPlot_avg->addGraph();
+    customPlot_avg->addGraph();
+    customPlot_avg->graph(0)->setPen(pen1);
+    customPlot_avg->yAxis->setAutoTicks(true);
+    customPlot_avg->yAxis->setAutoTickLabels(true);
+    customPlot_avg->xAxis2->setVisible(true);
+    customPlot_avg->xAxis2->setTickLabels(false);
+    customPlot_avg->yAxis2->setVisible(true);
+    customPlot_avg->xAxis2->setVisible(true);
+    customPlot_avg->yAxis2->setTickLabels(false);
+    customPlot_avg->xAxis->setAutoTickStep(true);
+    customPlot_avg->xAxis->setTickLabelColor("black");
+    customPlot_avg->yAxis->setTickLabelColor("black");
+    customPlot_avg->xAxis2->setTickLabelColor("black");
+    customPlot_avg->yAxis2->setTickLabelColor("black");
+    customPlot_avg->setAutoFillBackground(true);
+    customPlot_avg->xAxis->setTickStep(0);//distance between steps on x-axis
+    customPlot_avg->xAxis->setLabel("Location");
+    customPlot_avg->yAxis->setLabel("Avg");
+
+    customPlot_max->addGraph();
+    customPlot_max->addGraph();
+    customPlot_max->graph(0)->setPen(pen1);
+    customPlot_max->yAxis->setAutoTicks(true);
+    customPlot_max->yAxis->setAutoTickLabels(true);
+    customPlot_max->xAxis2->setVisible(true);
+    customPlot_max->xAxis2->setTickLabels(false);
+    customPlot_max->yAxis2->setVisible(true);
+    customPlot_max->xAxis2->setVisible(true);
+    customPlot_max->yAxis2->setTickLabels(false);
+    customPlot_max->xAxis->setAutoTickStep(true);
+    customPlot_max->xAxis->setTickLabelColor("black");
+    customPlot_max->yAxis->setTickLabelColor("black");
+    customPlot_max->xAxis2->setTickLabelColor("black");
+    customPlot_max->yAxis2->setTickLabelColor("black");
+    customPlot_max->setAutoFillBackground(true);
+    customPlot_max->xAxis->setTickStep(0);//distance between steps on x-axis
+    customPlot_max->yAxis->setLabel("Max");
+    customPlot_max->xAxis->setLabel("Location");
+
+    /*---------------------------------------------------*/
+
+
+
+
+
     //read battery info after every 2 minutes
     connect(&batt1Timer, SIGNAL(timeout()), this, SLOT(read_battery()));
     batt1Timer.start(120000); // Interval 0 means to refresh as fast as possible
@@ -104,6 +153,8 @@ void MainWindow::setupSimpleDemo(QCustomPlot *customPlot)
 
     connect(ui->customPlot,SIGNAL(mouseWheel(QWheelEvent*)),this,SLOT(on_mouseWheel(QWheelEvent*)));
     connect(ui->customPlot,SIGNAL(mousePress(QMouseEvent *)),this,SLOT(on_mousePress(QMouseEvent *)));
+
+    connect(&dialog,SIGNAL(on_exit_signal()),this,SLOT(start_LOC_MON_slot()));
 
     #ifdef DEBUG
     cout<<"Setup_simple_demo_completed"<<endl;
@@ -208,9 +259,9 @@ qDebug("final:max=%d\n",max);
 
 /*----------------------------------------------------------------------*/
 int i=0;
-
+#ifdef DEBUG
 printf("This stage skip value is %d\n",this->lut.skip_value[Present_Zoom_Level]);
-
+#endif
 int xval=0;
 
 for ( i = min; i < max  ; i++ ) {
@@ -256,4 +307,12 @@ key1_noise.clear();
 y0_noise.clear();
 
 }
+
+void MainWindow::start_LOC_MON_slot(){
+#ifdef DEBUG
+qDebug()<<"LOC_MON started";
+#endif
+
+}
+
 

@@ -1,6 +1,9 @@
 #ifndef ALL_HEADERS
 #define ALL_HEADERS
 #include <QMainWindow>
+#include "ThresholdTime.h"
+#include "ui_ThresholdTime.h"
+#include"read_batt.h"
 #include<qcustomplot.h>
 #include<qtimer.h>
 #include<QTimer>
@@ -90,7 +93,8 @@
 #include<QStyle>
 #include<QFont>
 #include<global_indexes.h>
-#include"read_batt.h"
+
+
 
 
 #endif // ALL_HEADERS

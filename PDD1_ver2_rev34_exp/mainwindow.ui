@@ -23,6 +23,26 @@
       <height>211</height>
      </rect>
     </property>
+    <widget class="QCustomPlot" name="customPlot_max" native="true">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>9</y>
+       <width>441</width>
+       <height>111</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QCustomPlot" name="customPlot_avg" native="true">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>90</y>
+       <width>441</width>
+       <height>111</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
    <widget class="QProgressBar" name="batteryBar">
     <property name="geometry">

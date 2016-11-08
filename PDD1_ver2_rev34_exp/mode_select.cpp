@@ -8,6 +8,9 @@ void MainWindow::set_mode(MODE setmode)
 mode=setmode;
 
 if(mode==SCREENING) {
+    ui->customPlot_avg->hide();
+    ui->customPlot_max->hide();
+    ui->customPlot->show();
 NO_OF_PLOTTING_VALS =NO_OF_RAW_VALS;
 boundry_lower= 0;
 boundry_upper= NO_OF_PLOTTING_VALS;
@@ -18,6 +21,9 @@ ui->range->setText("SCREENING...");
 }
 
 if(mode==SPECTRUM) {
+    ui->customPlot_avg->hide();
+    ui->customPlot_max->hide();
+    ui->customPlot->show();
 NO_OF_PLOTTING_VALS =NO_OF_FFT_VALS;
 boundry_lower =0;
 boundry_upper =NO_OF_PLOTTING_VALS;
@@ -25,6 +31,16 @@ boundry_upper =NO_OF_PLOTTING_VALS;
 qDebug("Location monitoring mode selected\n");
 #endif
 ui->range->setText("SPECTRUM...");
+}
+
+if(mode==LOC_MON) {
+
+   // ui->customPlot->hide();
+    ui->customPlot_avg->show();
+    ui->customPlot_max->show();
+    ui->range->setText("LOC_MON");
+
+
 }
 
 //Command routine for spectrum and screening mode
