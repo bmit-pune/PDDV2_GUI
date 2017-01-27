@@ -1,0 +1,13 @@
+ZOOM Implemented
+noise capture implemented
+noise capture with click zoom implemented
+OWTS mode implemented
+values in owts mode
+used on pddver2 board
+loc mon errors corrected-work on PDDV2 new board
+owts-index sorting + pwts threshod changes
+Power down implemented
+LOC MON-Max Threshold independent
+LOC_MON- labels Loc1 Loc2...
+LOC_MON random location reading implemented
+Sethu glitches left, solving in next release
