@@ -10,5 +10,4 @@ Power down implemented
 LOC MON-Max Threshold independent
 LOC_MON- labels Loc1 Loc2...
 LOC_MON random location reading implemented
-sethu resolved
-maxima algo on fft
+sethu observations-phase1 resolved
